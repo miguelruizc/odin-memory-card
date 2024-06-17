@@ -5,7 +5,9 @@ const Card = () => {
 	const [sprite, setSprite] = useState('');
 
 	useEffect(() => {
-		fetch('https://pokeapi.co/api/v2/pokemon/25')
+		const randomPokemon = Math.floor(Math.random() * 386) + 1;
+
+		fetch(`https://pokeapi.co/api/v2/pokemon/${randomPokemon}`)
 			.then((response) => response.json())
 			.then((data) => {
 				setName(data.name);
