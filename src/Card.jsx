@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { capitalize } from './helpers';
 
-const Card = () => {
+const Card = (pokemonNumber) => {
 	const [name, setName] = useState(null);
 	const [sprite, setSprite] = useState(null);
 	const [isPending, setIsPending] = useState(true);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		const randomPokemon = Math.floor(Math.random() * 386) + 1;
-
-		fetch(`https://pokeapi.co/api/v2/pokemon/${randomPokemon}`)
+		fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
 			.then((response) => {
 				if (!response.ok) {
 					console.log(response.status);

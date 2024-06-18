@@ -10,8 +10,9 @@ function App() {
 	const [scoreMultiplier, setScoreMultiplier] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isComplete, setIsComplete] = useState(false);
-	const [numCards, setNumCards] = useState(MIN_CARDS);
-	const [cardsArray, setCardsArray] = useState([]);
+	const [numCards, setNumCards] = useState(1);
+	const [pokemonUsed, setPokemonUsed] = useState([25]);
+	const [cardsArray, setCardsArray] = useState([25]);
 
 	return (
 		<>
@@ -28,7 +29,7 @@ function App() {
 				<input type="number" title="Additional cards acts increase score multiplier" />
 			</div>
 			<div className="board">
-				<Card />
+				<Card pokemonNumber={25} />
 			</div>
 		</>
 	);
