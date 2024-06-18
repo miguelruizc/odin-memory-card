@@ -21,7 +21,7 @@ const Card = (pokemonNumber) => {
 				});
 			})
 			.catch((err) => {
-				setError(err);
+				setError(err.message);
 				setIsPending(false);
 				console.error('Error fetching data', err);
 			});
