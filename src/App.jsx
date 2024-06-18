@@ -14,11 +14,13 @@ function App() {
 	const [numCards, setNumCards] = useState(1);
 	const [cards, setCards] = useState(generateRandomCards(numCards));
 	const [losingCard, setLosingCard] = useState(null);
+	const [winningCards, setWinningCards] = useState(null);
 
 	useEffect(() => {
 		// Check if all cards became clicked
 		if (cards.every((element) => element.isClicked === true)) {
 			endGame();
+			setWinningCards(true);
 		}
 	}, [cards]);
 
@@ -67,7 +69,16 @@ function App() {
 					losingCard={true}
 				/>
 			);
-		else
+		else if (winningCards) {
+			return (
+				<Card
+					key={element.id}
+					pokemonNumber={element.id}
+					clickHandler={cardClickHandler}
+					winningCard={winningCards}
+				/>
+			);
+		} else
 			return (
 				<Card key={element.id} pokemonNumber={element.id} clickHandler={cardClickHandler} />
 			);
