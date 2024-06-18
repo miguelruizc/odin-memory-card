@@ -27,3 +27,10 @@ export function generateRandomCards(amount) {
 
 	return array;
 }
+
+export function shuffle(array) {
+	let newArray = [...array];
+	newArray.sort(() => Math.random() - 0.5);
+
+	return newArray;
+}

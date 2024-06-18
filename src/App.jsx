@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Card from './Card.jsx';
-import { generateRandomCards } from './helpers.js';
+import { generateRandomCards, shuffle } from './helpers.js';
 
 const MIN_CARDS = 1;
 const MAX_CARDS = 99;
@@ -17,11 +17,13 @@ function App() {
 	useEffect(() => {
 		// Check if all cards became clicked
 		if (cards.every((element) => element.isClicked === true)) {
-			console.log('GAME WON BY WINNMENT');
-			setIsComplete(true);
-			setIsPlaying(false);
+			endGame();
 		}
 	}, [cards]);
+
+	useEffect(() => {
+		setCards((prev) => shuffle(prev));
+	}, [currentScore]);
 
 	const cardClickHandler = (id) => {
 		//Handle click if game is ON
@@ -30,9 +32,7 @@ function App() {
 
 			// Already clicked target
 			if (target.isClicked) {
-				console.log('GAME COMPLETED BY busteroni');
-				setIsComplete(true);
-				setIsPlaying(false);
+				endGame();
 			}
 
 			// Freshly clicked
@@ -67,6 +67,12 @@ function App() {
 	const play = () => {
 		setIsPlaying(true);
 		setIsComplete(false);
+	};
+
+	const endGame = () => {
+		setIsComplete(true);
+		setIsPlaying(false);
+		if (currentScore > highestScore) setHighestScore(currentScore);
 	};
 
 	const changeNumCards = (event) => {
