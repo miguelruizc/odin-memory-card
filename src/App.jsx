@@ -15,6 +15,7 @@ function App() {
 	const [cards, setCards] = useState(generateRandomCards(numCards));
 	const [losingCard, setLosingCard] = useState(null);
 	const [winningCards, setWinningCards] = useState(null);
+	const [isInitialScreen, setIsInitialScreen] = useState(true);
 
 	useEffect(() => {
 		// Check if all cards became clicked+
@@ -93,6 +94,7 @@ function App() {
 		setIsPlaying(true);
 		setIsWon(false);
 		setIsLost(false);
+		setIsInitialScreen(false);
 	};
 
 	const endGame = (won) => {
@@ -138,10 +140,19 @@ function App() {
 			<div className="title">
 				<h1>Memory Cards</h1>
 			</div>
-			<div className="scores">
-				<p>Highest score: {highestScore}</p>
-				<p>Current score: {currentScore}</p>
-			</div>
+			{!isInitialScreen && (
+				<div className="scores">
+					<p>
+						Highest score: <strong>{highestScore}</strong>
+					</p>
+					<p>
+						Current score: <strong>{currentScore}</strong>
+					</p>
+					<p>
+						Score multiplier: <strong>{scoreMultiplier}</strong>
+					</p>
+				</div>
+			)}
 
 			{!isPlaying && !isWon && !isLost && (
 				<div className="game-info">
@@ -150,26 +161,29 @@ function App() {
 			)}
 			{isPlaying && (
 				<div className="game-info">
-					<p>Click each card ONCE to score</p>
-					<p>Score multiplier: {scoreMultiplier}</p>
+					<p>
+						Click each card <b>once</b> to score
+					</p>
 				</div>
 			)}
 			{isLost && (
 				<div className="game-info">
-					<p>Game over: </p>
-					<p>Score: {currentScore}</p>
+					<p>Game over </p>
+					<p className="final-score">
+						<strong>Score: {currentScore}</strong>
+					</p>
 					<button onClick={playAgain}>Play again</button>
 				</div>
 			)}
 			{isWon && (
 				<div className="game-info">
-					<p>Level complete: </p>
-					<p>Score: {currentScore}</p>
+					<p>Round won!</p>
+					<p>Reward:</p>
 					<button onClick={playNext}>Score Multiplier +{numCards}</button>
 				</div>
 			)}
 
-			<div className="board">{cardList}</div>
+			{!isInitialScreen && <div className="board">{cardList}</div>}
 		</>
 	);
 }

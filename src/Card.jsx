@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { capitalize } from './helpers';
 
-const Card = ({ pokemonNumber, clickHandler, losingCard = false, winningCard = false }) => {
+const Card = ({ pokemonNumber = 25, clickHandler, losingCard = false, winningCard = false }) => {
 	const [name, setName] = useState(null);
 	const [sprite, setSprite] = useState(null);
 	const [isPending, setIsPending] = useState(true);
@@ -29,8 +29,14 @@ const Card = ({ pokemonNumber, clickHandler, losingCard = false, winningCard = f
 	}, [pokemonNumber]);
 
 	let style = {};
-	if (losingCard) style.backgroundColor = 'red';
-	if (winningCard) style.backgroundColor = 'green';
+	if (losingCard) {
+		style.backgroundColor = '#ff4242';
+		style.color = 'white';
+	}
+	if (winningCard) {
+		style.backgroundColor = '#afffaf';
+		style.color = '#303030';
+	}
 
 	return (
 		<>
