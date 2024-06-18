@@ -20,6 +20,11 @@
   transition: transform 0.1s ease-in;
 }
 
+.board {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card:hover {
   transform: scale(1.2);
 }

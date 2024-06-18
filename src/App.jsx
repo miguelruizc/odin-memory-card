@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Card from './Card.jsx';
+import { generateUniquePokemon } from './helpers.js';
 
 const MIN_CARDS = 2;
 const MAX_CARDS = 99;
@@ -11,8 +12,7 @@ function App() {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isComplete, setIsComplete] = useState(false);
 	const [numCards, setNumCards] = useState(1);
-	const [pokemonUsed, setPokemonUsed] = useState([25]);
-	const [cards, setCards] = useState([1, 2, 3, 4, 25]);
+	const [cards, setCards] = useState(generateUniquePokemon(numCards));
 
 	const cardList = cards.map((element) => {
 		return <Card key={element} pokemonNumber={element} />;
@@ -30,7 +30,7 @@ function App() {
 			<div className="game-info">
 				<button>Play</button>
 				<label>Number of cards: </label>
-				<input type="number" title="Additional cards acts increase score multiplier" />
+				<input type="number" title="Additional cards increase score multiplier" />
 			</div>
 			<div className="board">{cardList}</div>
 		</>
