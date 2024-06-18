@@ -14,31 +14,39 @@ function App() {
 	const [numCards, setNumCards] = useState(1);
 	const [cards, setCards] = useState(generateRandomCards(numCards));
 
-	const cardClickHandler = (id) => {
-		console.log(`${id} clicked`);
+	useEffect(() => {
+		// Check if all cards became clicked
+		if (cards.every((element) => element.isClicked === true)) {
+			console.log('GAME WON BY WINNMENT');
+			setIsComplete(true);
+			setIsPlaying(false);
+		}
+	}, [cards]);
 
+	const cardClickHandler = (id) => {
 		//Handle click if game is ON
 		if (isPlaying) {
 			let target = cards.find((element) => element.id === id);
-			console.log(target);
 
 			// Already clicked target
 			if (target.isClicked) {
-				console.log('BUSTED! Card was already clicked');
+				console.log('GAME COMPLETED BY busteroni');
+				setIsComplete(true);
+				setIsPlaying(false);
 			}
 
 			// Freshly clicked
 			else {
 				setCards((prevState) => {
-					let index = prevState.indexOf(target);
-					console.log(`index of target is: ${index}`);
+					let newState = [...prevState];
+					let index = newState.indexOf(target);
 
 					let newElement = target;
 					newElement.isClicked = true;
 
-					prevState[index] = newElement;
+					newState[index] = newElement;
 
-					return prevState;
+					return newState;
 				});
 
 				// Sum score
@@ -77,7 +85,7 @@ function App() {
 				<p>Current score: {currentScore}</p>
 			</div>
 
-			{!isPlaying && (
+			{!isPlaying && !isComplete && (
 				<div className="game-info">
 					<label>Number of cards: </label>
 					<input
@@ -98,6 +106,14 @@ function App() {
 					<p>Score multiplier: {scoreMultiplier}</p>
 				</div>
 			)}
+			{isComplete && (
+				<div className="game-info">
+					<p>Game over: </p>
+					<p>Score: {currentScore}</p>
+					<button>Play again</button>
+				</div>
+			)}
+
 			<div className="board">{cardList}</div>
 		</>
 	);
