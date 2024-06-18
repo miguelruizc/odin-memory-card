@@ -1,13 +1,15 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { capitalize } from './helpers';
 
-const Card = (pokemonNumber) => {
+const Card = ({ pokemonNumber }) => {
 	const [name, setName] = useState(null);
 	const [sprite, setSprite] = useState(null);
 	const [isPending, setIsPending] = useState(true);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
+		console.log(pokemonNumber);
 		fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
 			.then((response) => {
 				if (!response.ok) {
@@ -25,7 +27,7 @@ const Card = (pokemonNumber) => {
 				setIsPending(false);
 				console.error('Error fetching data', err);
 			});
-	}, []);
+	}, [pokemonNumber]);
 
 	return (
 		<div className="card">
