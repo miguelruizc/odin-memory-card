@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { capitalize } from './helpers';
 
-const Card = ({ pokemonNumber }) => {
+const Card = ({ pokemonNumber, clickHandler }) => {
 	const [name, setName] = useState(null);
 	const [sprite, setSprite] = useState(null);
 	const [isPending, setIsPending] = useState(true);
@@ -29,26 +29,26 @@ const Card = ({ pokemonNumber }) => {
 	}, [pokemonNumber]);
 
 	return (
-		<div className="card">
+		<>
 			{isPending && (
-				<>
+				<div className="card">
 					<h2>Loading...</h2>
 					<img src="./src/assets/pokeball.png"></img>
-				</>
+				</div>
 			)}
 			{error && (
-				<>
+				<div className="card">
 					<h2>{error}</h2>
 					<img src="./src/assets/pokeball.png"></img>
-				</>
+				</div>
 			)}
 			{name && (
-				<>
+				<div className="card" onClick={() => clickHandler(pokemonNumber)}>
 					<h2>{name}</h2>
 					<img src={sprite}></img>
-				</>
+				</div>
 			)}
-		</div>
+		</>
 	);
 };
 

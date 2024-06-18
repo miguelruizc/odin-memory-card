@@ -13,9 +13,17 @@ function App() {
 	const [isComplete, setIsComplete] = useState(false);
 	const [numCards, setNumCards] = useState(1);
 	const [cards, setCards] = useState(generateRandomCards(numCards));
+	const [console, setConsole] = useState([]);
 
+	const cardClickHandler = (id) => {
+		setConsole((previous) => {
+			let strings = [...previous];
+			strings.push(`${id}+`);
+			return strings;
+		});
+	};
 	const cardList = cards.map((element) => {
-		return <Card key={element.id} pokemonNumber={element.id} />;
+		return <Card key={element.id} pokemonNumber={element.id} clickHandler={cardClickHandler} />;
 	});
 
 	useEffect(() => {
@@ -30,7 +38,6 @@ function App() {
 
 	const changeNumCards = (event) => {
 		if (event.target.value >= MIN_CARDS && event.target.value <= MAX_CARDS) {
-			console.log(event.target.value);
 			setNumCards(event.target.value);
 		}
 	};
@@ -66,7 +73,7 @@ function App() {
 					<p>Score multiplier: {scoreMultiplier}</p>
 				</div>
 			)}
-
+			<p>{console}</p>
 			<div className="board">{cardList}</div>
 		</>
 	);
