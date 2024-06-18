@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { capitalize } from './helpers';
 
-const Card = ({ pokemonNumber, clickHandler }) => {
+const Card = ({ pokemonNumber, clickHandler, losingCard = false }) => {
 	const [name, setName] = useState(null);
 	const [sprite, setSprite] = useState(null);
 	const [isPending, setIsPending] = useState(true);
@@ -28,6 +28,9 @@ const Card = ({ pokemonNumber, clickHandler }) => {
 			});
 	}, [pokemonNumber]);
 
+	let style = {};
+	if (losingCard) style.backgroundColor = 'red';
+
 	return (
 		<>
 			{isPending && (
@@ -43,7 +46,7 @@ const Card = ({ pokemonNumber, clickHandler }) => {
 				</div>
 			)}
 			{name && (
-				<div className="card" onClick={() => clickHandler(pokemonNumber)}>
+				<div className="card" onClick={() => clickHandler(pokemonNumber)} style={style}>
 					<h2>{name}</h2>
 					<img src={sprite}></img>
 				</div>
