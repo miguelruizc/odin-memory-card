@@ -32,15 +32,14 @@ export function shuffle(array) {
 	let newArray = [...array];
 	do {
 		newArray.sort(() => Math.random() - 0.5);
-	} while (!arraysAreDifferent(newArray, array));
+	} while (!areAllIndicesDifferent(newArray, array));
 
 	return newArray;
 }
 
-function arraysAreDifferent(a, b) {
-	if (a.length !== b.length) return true;
+function areAllIndicesDifferent(a, b) {
 	for (let i = 0; i < a.length; i++) {
-		if (a[i] !== b[i]) return true;
+		if (a[i] === b[i]) return false;
 	}
-	return false;
+	return true;
 }
