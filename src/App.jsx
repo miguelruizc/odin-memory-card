@@ -13,22 +13,18 @@ function App() {
 	const [isComplete, setIsComplete] = useState(false);
 	const [numCards, setNumCards] = useState(1);
 	const [cards, setCards] = useState(generateRandomCards(numCards));
-	const [console, setConsole] = useState([]);
 
 	const cardClickHandler = (id) => {
-		setConsole((previous) => {
-			let strings = [...previous];
-			strings.push(`${id}+`);
-			return strings;
-		});
+		console.log(`${id} clicked`);
 	};
+
 	const cardList = cards.map((element) => {
 		return <Card key={element.id} pokemonNumber={element.id} clickHandler={cardClickHandler} />;
 	});
 
 	useEffect(() => {
 		setCards(generateRandomCards(numCards));
-		setScoreMultiplier(numCards); //Todo: Design a score multiplier formula
+		setScoreMultiplier(1); //Todo: Design a score multiplier formula
 	}, [numCards]);
 
 	const play = () => {
@@ -73,7 +69,6 @@ function App() {
 					<p>Score multiplier: {scoreMultiplier}</p>
 				</div>
 			)}
-			<p>{console}</p>
 			<div className="board">{cardList}</div>
 		</>
 	);
