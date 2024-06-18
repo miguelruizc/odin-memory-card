@@ -2,24 +2,25 @@ import { useEffect, useState } from 'react';
 import Card from './Card.jsx';
 import { generateRandomCards, shuffle } from './helpers.js';
 
-const MIN_CARDS = 1;
-const MAX_CARDS = 99;
+const INITIAL_CARDS = 5;
 
 function App() {
 	const [highestScore, setHighestScore] = useState(0);
 	const [currentScore, setCurrentScore] = useState(0);
 	const [scoreMultiplier, setScoreMultiplier] = useState(1);
 	const [isPlaying, setIsPlaying] = useState(false);
-	const [isComplete, setIsComplete] = useState(false);
-	const [numCards, setNumCards] = useState(1);
+	const [isWon, setIsWon] = useState(false);
+	const [isLost, setIsLost] = useState(false);
+	const [numCards, setNumCards] = useState(INITIAL_CARDS);
 	const [cards, setCards] = useState(generateRandomCards(numCards));
 	const [losingCard, setLosingCard] = useState(null);
 	const [winningCards, setWinningCards] = useState(null);
 
 	useEffect(() => {
-		// Check if all cards became clicked
+		// Check if all cards became clicked+
+
 		if (cards.every((element) => element.isClicked === true)) {
-			endGame();
+			endGame(true);
 			setWinningCards(true);
 		}
 	}, [cards]);
@@ -35,7 +36,7 @@ function App() {
 
 			// Already clicked target
 			if (target.isClicked) {
-				endGame();
+				endGame(false);
 				setLosingCard(id);
 			}
 
@@ -86,24 +87,50 @@ function App() {
 
 	useEffect(() => {
 		setCards(generateRandomCards(numCards));
-		setScoreMultiplier(1); //Todo: Design a score multiplier formula
 	}, [numCards]);
 
 	const play = () => {
 		setIsPlaying(true);
-		setIsComplete(false);
+		setIsWon(false);
+		setIsLost(false);
 	};
 
-	const endGame = () => {
-		setIsComplete(true);
-		setIsPlaying(false);
-		if (currentScore > highestScore) setHighestScore(currentScore);
-	};
-
-	const changeNumCards = (event) => {
-		if (event.target.value >= MIN_CARDS && event.target.value <= MAX_CARDS) {
-			setNumCards(event.target.value);
+	const endGame = (won) => {
+		if (won) {
+			setIsWon(true);
+			setIsLost(false);
+		} else {
+			setIsLost(true);
+			setIsWon(false);
+			if (currentScore > highestScore) setHighestScore(currentScore);
 		}
+
+		setIsPlaying(false);
+	};
+
+	const playAgain = () => {
+		// Reset states for a new game
+		setCurrentScore(0);
+		setScoreMultiplier(1);
+		setIsPlaying(true);
+		setIsWon(false);
+		setIsLost(false);
+		setNumCards(INITIAL_CARDS);
+		setCards(generateRandomCards(numCards));
+		setLosingCard(null);
+		setWinningCards(null);
+	};
+
+	const playNext = () => {
+		// Reset states for a new round
+		setIsPlaying(true);
+		setIsWon(false);
+		setIsLost(false);
+		setScoreMultiplier(scoreMultiplier + numCards);
+		setNumCards(numCards + 1);
+		setCards(generateRandomCards(numCards + 1));
+		setLosingCard(null);
+		setWinningCards(null);
 	};
 
 	return (
@@ -116,18 +143,8 @@ function App() {
 				<p>Current score: {currentScore}</p>
 			</div>
 
-			{!isPlaying && !isComplete && (
+			{!isPlaying && !isWon && !isLost && (
 				<div className="game-info">
-					<label>Number of cards: </label>
-					<input
-						type="number"
-						title="Additional cards increase score multiplier"
-						value={numCards}
-						onChange={changeNumCards}
-						min={2}
-						max={50}
-					/>
-					<p>Score multiplier: {scoreMultiplier}</p>
 					<button onClick={play}>Play</button>
 				</div>
 			)}
@@ -137,11 +154,18 @@ function App() {
 					<p>Score multiplier: {scoreMultiplier}</p>
 				</div>
 			)}
-			{isComplete && (
+			{isLost && (
 				<div className="game-info">
 					<p>Game over: </p>
 					<p>Score: {currentScore}</p>
-					<button>Play again</button>
+					<button onClick={playAgain}>Play again</button>
+				</div>
+			)}
+			{isWon && (
+				<div className="game-info">
+					<p>Level complete: </p>
+					<p>Score: {currentScore}</p>
+					<button onClick={playNext}>Score Multiplier +{numCards}</button>
 				</div>
 			)}
 
