@@ -8,7 +8,7 @@ const MAX_CARDS = 99;
 function App() {
 	const [highestScore, setHighestScore] = useState(0);
 	const [currentScore, setCurrentScore] = useState(0);
-	const [scoreMultiplier, setScoreMultiplier] = useState(0);
+	const [scoreMultiplier, setScoreMultiplier] = useState(1);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isComplete, setIsComplete] = useState(false);
 	const [numCards, setNumCards] = useState(1);
@@ -20,6 +20,7 @@ function App() {
 
 	useEffect(() => {
 		setCards(generateUniquePokemon(numCards));
+		setScoreMultiplier(numCards);
 	}, [numCards]);
 
 	return (
@@ -40,6 +41,7 @@ function App() {
 					value={numCards}
 					onChange={(event) => setNumCards(event.target.value)}
 				/>
+				<p>Score multipler: {scoreMultiplier}</p>
 			</div>
 			<div className="board">{cardList}</div>
 		</>
