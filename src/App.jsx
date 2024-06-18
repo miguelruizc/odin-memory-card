@@ -12,7 +12,11 @@ function App() {
 	const [isComplete, setIsComplete] = useState(false);
 	const [numCards, setNumCards] = useState(1);
 	const [pokemonUsed, setPokemonUsed] = useState([25]);
-	const [cardsArray, setCardsArray] = useState([25]);
+	const [cards, setCards] = useState([1, 2, 3, 4, 25]);
+
+	const cardList = cards.map((element) => {
+		return <Card key={element} pokemonNumber={element} />;
+	});
 
 	return (
 		<>
@@ -28,9 +32,7 @@ function App() {
 				<label>Number of cards: </label>
 				<input type="number" title="Additional cards acts increase score multiplier" />
 			</div>
-			<div className="board">
-				<Card pokemonNumber={25} />
-			</div>
+			<div className="board">{cardList}</div>
 		</>
 	);
 }
