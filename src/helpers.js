@@ -2,7 +2,7 @@ export function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function generateUniquePokemon(amount) {
+export function generateRandomCards(amount) {
 	const GEN1 = 151;
 	const GEN2 = 251;
 	const GEN3 = 386;
@@ -21,7 +21,8 @@ export function generateUniquePokemon(amount) {
 			pokemonNumber = Math.floor(Math.random() * GEN9) + 1;
 		} while (array.includes(pokemonNumber));
 
-		array.push(pokemonNumber);
+		const pokemonCard = { id: pokemonNumber, isClicked: false };
+		array.push(pokemonCard);
 	}
 
 	return array;

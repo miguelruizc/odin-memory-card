@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Card from './Card.jsx';
-import { generateUniquePokemon } from './helpers.js';
+import { generateRandomCards } from './helpers.js';
 
 const MIN_CARDS = 2;
 const MAX_CARDS = 99;
@@ -12,19 +12,20 @@ function App() {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isComplete, setIsComplete] = useState(false);
 	const [numCards, setNumCards] = useState(1);
-	const [cards, setCards] = useState(generateUniquePokemon(numCards));
+	const [cards, setCards] = useState(generateRandomCards(numCards));
 
 	const cardList = cards.map((element) => {
-		return <Card key={element} pokemonNumber={element} />;
+		return <Card key={element.id} pokemonNumber={element.id} />;
 	});
 
 	useEffect(() => {
-		setCards(generateUniquePokemon(numCards));
+		setCards(generateRandomCards(numCards));
 		setScoreMultiplier(numCards); //Todo: Design a score multiplier formula
 	}, [numCards]);
 
 	const play = () => {
 		setIsPlaying(true);
+		setIsComplete(false);
 	};
 
 	return (
