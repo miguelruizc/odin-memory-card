@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { capitalize } from './helpers';
 
 const Card = () => {
 	const [name, setName] = useState(null);
@@ -16,7 +17,7 @@ const Card = () => {
 					throw new Error('HTTP error!');
 				}
 				response.json().then((data) => {
-					setName(data.name);
+					setName(capitalize(data.name));
 					setSprite(data.sprites.front_default);
 					setIsPending(false);
 				});
