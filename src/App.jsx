@@ -16,6 +16,35 @@ function App() {
 
 	const cardClickHandler = (id) => {
 		console.log(`${id} clicked`);
+
+		//Handle click if game is ON
+		if (isPlaying) {
+			let target = cards.find((element) => element.id === id);
+			console.log(target);
+
+			// Already clicked target
+			if (target.isClicked) {
+				console.log('BUSTED! Card was already clicked');
+			}
+
+			// Freshly clicked
+			else {
+				setCards((prevState) => {
+					let index = prevState.indexOf(target);
+					console.log(`index of target is: ${index}`);
+
+					let newElement = target;
+					newElement.isClicked = true;
+
+					prevState[index] = newElement;
+
+					return prevState;
+				});
+
+				// Sum score
+				setCurrentScore((prev) => prev + scoreMultiplier);
+			}
+		}
 	};
 
 	const cardList = cards.map((element) => {
