@@ -30,7 +30,17 @@ export function generateRandomCards(amount) {
 
 export function shuffle(array) {
 	let newArray = [...array];
-	newArray.sort(() => Math.random() - 0.5);
+	do {
+		newArray.sort(() => Math.random() - 0.5);
+	} while (!arraysAreDifferent(newArray, array));
 
 	return newArray;
+}
+
+function arraysAreDifferent(a, b) {
+	if (a.length !== b.length) return true;
+	for (let i = 0; i < a.length; i++) {
+		if (a[i] !== b[i]) return true;
+	}
+	return false;
 }
