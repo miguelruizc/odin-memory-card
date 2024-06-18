@@ -18,7 +18,7 @@ export function generateUniquePokemon(amount) {
 	for (let i = 0; i < amount; i++) {
 		let pokemonNumber;
 		do {
-			pokemonNumber = Math.floor(Math.random() * GEN1) + 1;
+			pokemonNumber = Math.floor(Math.random() * GEN9) + 1;
 		} while (array.includes(pokemonNumber));
 
 		array.push(pokemonNumber);

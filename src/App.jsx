@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from './Card.jsx';
 import { generateUniquePokemon } from './helpers.js';
 
@@ -18,6 +18,10 @@ function App() {
 		return <Card key={element} pokemonNumber={element} />;
 	});
 
+	useEffect(() => {
+		setCards(generateUniquePokemon(numCards));
+	}, [numCards]);
+
 	return (
 		<>
 			<div className="title">
@@ -30,7 +34,12 @@ function App() {
 			<div className="game-info">
 				<button>Play</button>
 				<label>Number of cards: </label>
-				<input type="number" title="Additional cards increase score multiplier" />
+				<input
+					type="number"
+					title="Additional cards increase score multiplier"
+					value={numCards}
+					onChange={(event) => setNumCards(event.target.value)}
+				/>
 			</div>
 			<div className="board">{cardList}</div>
 		</>
