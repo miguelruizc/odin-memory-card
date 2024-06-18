@@ -20,8 +20,12 @@ function App() {
 
 	useEffect(() => {
 		setCards(generateUniquePokemon(numCards));
-		setScoreMultiplier(numCards);
+		setScoreMultiplier(numCards); //Todo: Design a score multiplier formula
 	}, [numCards]);
+
+	const play = () => {
+		setIsPlaying(true);
+	};
 
 	return (
 		<>
@@ -32,17 +36,27 @@ function App() {
 				<p>Highest score: {highestScore}</p>
 				<p>Current score: {currentScore}</p>
 			</div>
-			<div className="game-info">
-				<button>Play</button>
-				<label>Number of cards: </label>
-				<input
-					type="number"
-					title="Additional cards increase score multiplier"
-					value={numCards}
-					onChange={(event) => setNumCards(event.target.value)}
-				/>
-				<p>Score multipler: {scoreMultiplier}</p>
-			</div>
+
+			{!isPlaying && (
+				<div className="game-info">
+					<label>Number of cards: </label>
+					<input
+						type="number"
+						title="Additional cards increase score multiplier"
+						value={numCards}
+						onChange={(event) => setNumCards(event.target.value)}
+					/>
+					<p>Score multiplier: {scoreMultiplier}</p>
+					<button onClick={play}>Play</button>
+				</div>
+			)}
+			{isPlaying && (
+				<div className="game-info">
+					<p>Click each card ONCE to score</p>
+					<p>Score multiplier: {scoreMultiplier}</p>
+				</div>
+			)}
+
 			<div className="board">{cardList}</div>
 		</>
 	);
