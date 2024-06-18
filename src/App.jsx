@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Card from './Card.jsx';
 import { generateRandomCards } from './helpers.js';
 
-const MIN_CARDS = 2;
+const MIN_CARDS = 1;
 const MAX_CARDS = 99;
 
 function App() {
@@ -28,6 +28,13 @@ function App() {
 		setIsComplete(false);
 	};
 
+	const changeNumCards = (event) => {
+		if (event.target.value >= MIN_CARDS && event.target.value <= MAX_CARDS) {
+			console.log(event.target.value);
+			setNumCards(event.target.value);
+		}
+	};
+
 	return (
 		<>
 			<div className="title">
@@ -45,7 +52,9 @@ function App() {
 						type="number"
 						title="Additional cards increase score multiplier"
 						value={numCards}
-						onChange={(event) => setNumCards(event.target.value)}
+						onChange={changeNumCards}
+						min={2}
+						max={50}
 					/>
 					<p>Score multiplier: {scoreMultiplier}</p>
 					<button onClick={play}>Play</button>

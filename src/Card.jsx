@@ -9,7 +9,6 @@ const Card = ({ pokemonNumber }) => {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		console.log(pokemonNumber);
 		fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`)
 			.then((response) => {
 				if (!response.ok) {
