@@ -79,7 +79,7 @@ hr {
 }
 
 .card {
-  max-width: 130px;
+ 
 }
 .game-info {
   display: flex;
@@ -149,5 +149,20 @@ button:hover {
       /* Final state */
       opacity: 0;
       transform: translateY(-10px); /* Example transform */
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    h2 {
+      font-size: 15px;
+    }
+
+    .card {
+      max-width: 130px;
+    }
+    .card h2 {
+      word-wrap: break-word;
+      white-space: normal;
+      word-break: break-all;
     }
   }
