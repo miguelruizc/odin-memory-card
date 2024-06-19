@@ -191,6 +191,7 @@ button:hover {
       padding: 10px;
       transition: none;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .card:hover {
