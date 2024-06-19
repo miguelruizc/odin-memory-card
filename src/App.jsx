@@ -142,14 +142,17 @@ function App() {
 			</div>
 			{!isInitialScreen && (
 				<div className="scores">
+					<div className="scores-left">
+						<p>
+							Score: <strong>{currentScore}</strong>
+						</p>
+						<p>
+							Multiplier: <strong>{scoreMultiplier}</strong>
+						</p>
+					</div>
+					<hr></hr>
 					<p>
-						Highest score: <strong>{highestScore}</strong>
-					</p>
-					<p>
-						Current score: <strong>{currentScore}</strong>
-					</p>
-					<p>
-						Score multiplier: <strong>{scoreMultiplier}</strong>
+						Highest: <strong>{highestScore}</strong>
 					</p>
 				</div>
 			)}
@@ -157,13 +160,6 @@ function App() {
 			{!isPlaying && !isWon && !isLost && (
 				<div className="game-info">
 					<button onClick={play}>Play</button>
-				</div>
-			)}
-			{isPlaying && (
-				<div className="game-info">
-					<p>
-						Click each card <b>once</b> to score
-					</p>
 				</div>
 			)}
 			{isLost && (
@@ -178,12 +174,22 @@ function App() {
 			{isWon && (
 				<div className="game-info">
 					<p>Round won!</p>
-					<p>Reward:</p>
+					<strong>
+						<p className="reward">Reward:</p>
+					</strong>
 					<button onClick={playNext}>Score Multiplier +{numCards}</button>
 				</div>
 			)}
 
 			{!isInitialScreen && <div className="board">{cardList}</div>}
+
+			{isPlaying && (
+				<div className="game-info">
+					<p>
+						Click each card <b>once</b> to score
+					</p>
+				</div>
+			)}
 		</>
 	);
 }

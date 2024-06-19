@@ -34,8 +34,10 @@ const Card = ({ pokemonNumber = 25, clickHandler, losingCard = false, winningCar
 		style.color = 'white';
 	}
 	if (winningCard) {
-		style.backgroundColor = '#afffaf';
-		style.color = '#303030';
+		let color = '#0075ff';
+		style.backgroundColor = '#ffffff';
+		style.color = color;
+		style.border = `2px solid ${color}`;
 	}
 
 	return (
