@@ -117,3 +117,34 @@ button:hover {
   hr {
     display: none;
   }
+
+  .score-animation {
+    position: absolute;
+    z-index: 99;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+
+    animation-name: scoreAnimation;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+
+  @keyframes scoreAnimation {
+    0% {
+      /* Initial state */
+      opacity: 0;
+      transform: translateY(0); /* Example transform */
+    }
+    50% {
+      opacity: 100;
+    }
+    100% {
+      /* Final state */
+      opacity: 0;
+      transform: translateY(-10px); /* Example transform */
+    }
+  }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Card from './Card.jsx';
 import { generateRandomCards, shuffle } from './helpers.js';
+import ScoreAnimation from './ScoreAnimation.jsx';
 
 const INITIAL_CARDS = 5;
 
@@ -16,6 +17,7 @@ function App() {
 	const [losingCard, setLosingCard] = useState(null);
 	const [winningCards, setWinningCards] = useState(null);
 	const [isInitialScreen, setIsInitialScreen] = useState(true);
+	const [scoreAnimation, setScoreAnimation] = useState(null);
 
 	useEffect(() => {
 		// Check if all cards became clicked+
@@ -28,6 +30,15 @@ function App() {
 
 	useEffect(() => {
 		setCards((prev) => shuffle(prev));
+	}, [currentScore]);
+
+	useEffect(() => {
+		if (currentScore > 0)
+			setScoreAnimation(<ScoreAnimation scoreMultiplier={scoreMultiplier} />);
+
+		setTimeout(() => {
+			setScoreAnimation(null);
+		}, 600);
 	}, [currentScore]);
 
 	const cardClickHandler = (id) => {
@@ -143,6 +154,7 @@ function App() {
 			{!isInitialScreen && (
 				<div className="scores">
 					<div className="scores-left">
+						{scoreAnimation && <ScoreAnimation scoreMultiplier={scoreMultiplier} />}
 						<p>
 							Score: <strong>{currentScore}</strong>
 						</p>
