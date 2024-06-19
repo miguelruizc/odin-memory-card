@@ -47,10 +47,6 @@ function App() {
 
 	useEffect(() => {
 		if (currentScore > 0) {
-			console.log('currentScore updated, triggering animation code');
-			console.log(`scoreMultiplier: ${scoreMultiplier}`);
-			console.log(`coordinates: ${JSON.stringify(coordinates)}`);
-
 			const animationElement = (
 				<ScoreAnimation scoreMultiplier={scoreMultiplier} mouseCoordinates={coordinates} />
 			);
