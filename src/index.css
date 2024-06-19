@@ -121,13 +121,13 @@ button:hover {
   .score-animation {
     position: absolute;
     z-index: 99;
-    font-weight: bold;
+    font-weight: 1000;
     font-size: 30px;
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 0 rgb(0, 0, 0);
+    color: #0075ff;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
 
     animation-name: scoreAnimation;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;

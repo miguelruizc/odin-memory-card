@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from './Card.jsx';
 import { generateRandomCards, shuffle } from './helpers.js';
 import ScoreAnimation from './ScoreAnimation.jsx';
@@ -18,6 +18,19 @@ function App() {
 	const [winningCards, setWinningCards] = useState(null);
 	const [isInitialScreen, setIsInitialScreen] = useState(true);
 	const [scoreAnimation, setScoreAnimation] = useState(null);
+	const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
+
+	useEffect(() => {
+		const handleMouseMove = (event) => {
+			setCoordinates({ x: event.clientX, y: event.clientY });
+		};
+
+		document.addEventListener('mousemove', handleMouseMove);
+
+		return () => {
+			document.removeEventListener('mousemove', handleMouseMove);
+		};
+	}, []);
 
 	useEffect(() => {
 		// Check if all cards became clicked+
@@ -33,12 +46,20 @@ function App() {
 	}, [currentScore]);
 
 	useEffect(() => {
-		if (currentScore > 0)
-			setScoreAnimation(<ScoreAnimation scoreMultiplier={scoreMultiplier} />);
+		if (currentScore > 0) {
+			console.log('currentScore updated, triggering animation code');
+			console.log(`scoreMultiplier: ${scoreMultiplier}`);
+			console.log(`coordinates: ${JSON.stringify(coordinates)}`);
 
-		setTimeout(() => {
-			setScoreAnimation(null);
-		}, 600);
+			const animationElement = (
+				<ScoreAnimation scoreMultiplier={scoreMultiplier} mouseCoordinates={coordinates} />
+			);
+			setScoreAnimation(animationElement);
+
+			setTimeout(() => {
+				setScoreAnimation(null);
+			}, 600);
+		}
 	}, [currentScore]);
 
 	const cardClickHandler = (id) => {
@@ -154,7 +175,6 @@ function App() {
 			{!isInitialScreen && (
 				<div className="scores">
 					<div className="scores-left">
-						{scoreAnimation && <ScoreAnimation scoreMultiplier={scoreMultiplier} />}
 						<p>
 							Score: <strong>{currentScore}</strong>
 						</p>
@@ -202,6 +222,8 @@ function App() {
 					</p>
 				</div>
 			)}
+
+			{scoreAnimation}
 		</>
 	);
 }
