@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import { capitalize } from './helpers';
+import pokeball from './assets/pokeball.png';
 
 const Card = ({ pokemonNumber = 25, clickHandler, losingCard = false, winningCard = false }) => {
 	const [name, setName] = useState(null);
@@ -45,13 +46,13 @@ const Card = ({ pokemonNumber = 25, clickHandler, losingCard = false, winningCar
 			{isPending && (
 				<div className="card">
 					<h2>Loading...</h2>
-					<img src="./src/assets/pokeball.png"></img>
+					<img src={pokeball}></img>
 				</div>
 			)}
 			{error && (
 				<div className="card">
 					<h2>{error}</h2>
-					<img src="./src/assets/pokeball.png"></img>
+					<img src={pokeball}></img>
 				</div>
 			)}
 			{name && (
