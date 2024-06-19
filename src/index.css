@@ -78,6 +78,9 @@ hr {
   height: auto;
 }
 
+.card {
+  max-width: 130px;
+}
 .game-info {
   display: flex;
   flex-direction: column;
