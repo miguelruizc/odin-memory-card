@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  flex: 1;
 }
 
 body {
@@ -57,6 +58,7 @@ hr {
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
   padding: 10px;
   transition: transform 0.1s ease-in;
+  cursor: pointer;
 }
 
 .board {
@@ -81,9 +83,6 @@ hr {
   height: auto;
 }
 
-.card {
- 
-}
 .game-info {
   display: flex;
   flex-direction: column;
@@ -99,6 +98,7 @@ button {
   padding: 10px;
   background-color: white;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
 button:hover {
@@ -153,6 +153,19 @@ button:hover {
       opacity: 0;
       transform: translateY(-10px); /* Example transform */
     }
+  }
+
+  .poweredBy {
+    font-size: 16px;
+    color: white;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 15px;
+  }
+
+  .poweredBy a {
+    text-decoration: none;
+    color: white;
   }
 
   @media screen and (max-width: 450px) {
