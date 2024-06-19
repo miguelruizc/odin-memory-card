@@ -18,7 +18,7 @@ export function generateRandomCards(amount) {
 	for (let i = 0; i < amount; i++) {
 		let pokemonNumber;
 		do {
-			pokemonNumber = Math.floor(Math.random() * GEN9) + 1;
+			pokemonNumber = Math.floor(Math.random() * GEN3) + 1;
 		} while (array.some((obj) => obj.id === pokemonNumber));
 
 		const pokemonCard = { id: pokemonNumber, isClicked: false };
